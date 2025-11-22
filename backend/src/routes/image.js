@@ -82,69 +82,6 @@ router.post("/generate", async (req, res) => {
   }
 });
 
-// router.post("/analyze", upload.single("image"), async (req, res) => {
-//   try {
-//     if (!req.file) return res.status(400).json({ error: "Image file required." });
-
-//     // Here you can send image bytes to Gemini if it supports vision input
-//     // For simplicity, we assume Gemini can generate text from an image
-//     const t2iModel = genAI.getGenerativeModel({
-//       model: "gemini-2.5-flash-image",
-//     });
-//     // const prompt = "Describe this image in a short, detailed, artistic way:";
-
-//     // const result = await t2iModel.generateContent(prompt); // ideally pass image bytes if supported
-//     const result = await t2iModel.generateContent({
-//       text: "Describe this image in a short, detailed, artistic way:",
-//       images: [
-//         {
-//           mimeType: req.file.mimetype,
-//           data: req.file.buffer
-//         }
-//       ]
-//     });
-
-
-//     const description = result.response.candidates[0]?.content?.text || "No description generated";
-
-//     res.json({ description });
-
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-
-// router.post("/generate-variation", async (req, res) => {
-//   try {
-//     const { promptText } = req.body;
-//     if (!promptText) return res.status(400).json({ error: "Prompt text required" });
-
-//     const t2iModel = getT2IModel();
-
-//     const variationPrompt = `Create a stylized variation of this: ${promptText} as cinematic digital painting with neon lights`;
-
-//     const response = await t2iModel.generateContent([variationPrompt]);
-
-//     let imageUrl = null;
-//     const parts = response.response.candidates[0]?.content?.parts || [];
-
-//     for (const part of parts) {
-//       if (part.uri) {
-//         imageUrl = part.uri; // direct URL if available
-//         break;
-//       }
-//     }
-
-//     if (!imageUrl) throw new Error("No image returned from Gemini");
-
-//     res.json({ image: imageUrl, prompt: variationPrompt });
-
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
 
 router.post("/analyze", upload.single("image"), async (req, res) => {
   try {
