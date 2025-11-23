@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000";
+const API_BASE = import.meta.env.VITE_BACKEND_URL ;
 
 
 export async function enhancePrompt(prompt) {
@@ -21,7 +21,13 @@ export async function generateImage(prompt) {
 }
 
 export async function analyzeImage(formData) {
-  const res = await fetch(`${API_BASE}/api/image/analyze`, { method: "POST", body: formData });
+  console.log("analyzeImage formData:", formData);
+  const res = await fetch(`${API_BASE}/api/image/analyze`, 
+    {
+      headers: { "Content-Type": "application/json" },
+      method: "POST", 
+      body: JSON.stringify({ formData })
+    });
   console.log("analyzeImage response:", res);
   return res.json();
 }

@@ -12,11 +12,27 @@ export default function ImageFlow() {
   const [imageurl, setImageurl] = useState(null);
 
   const handleAnalyze = async () => {
-    if (!file) return;
-    const fd = new FormData();
-    fd.append("image", file);
-    const data = await analyzeImage(fd);
-    setDescription(data.description);
+   if (!file) return;
+
+   console.log("file:", file);
+  // Convert file to base64
+  const reader = new FileReader();
+  reader.onloadend = async () => {
+    const base64String = reader.result.split(",")[1];
+
+    const payload = {
+      type: "analyze",
+      base64Image: base64String,
+      mimeType: file.type,
+    };
+    
+    console.log("payload:", payload);
+
+    const data = await analyzeImage(payload);
+    setDescription(data.result); // backend sends { result: "...text..." }
+  };
+  reader.readAsDataURL(file);
+    //setDescription(data.description);
   };
 
   const handleGenerate = async () => {
