@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_BACKEND_URL ;
+const API_BASE = "https://pear-media.onrender.com";
 
 
 export async function enhancePrompt(prompt) {
